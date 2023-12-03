@@ -1,6 +1,7 @@
 import numpy as np
 
-class RT60():
+
+class RT60:
     def measure(self, h, fs=1, decay_db=60, rt60_tgt=None):
         h = np.array(h)
         fs = float(fs)
