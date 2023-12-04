@@ -16,9 +16,9 @@ class FileSelectFrame(QFrame):
         self.layout.addWidget(self.file_select_button)
 
         self.file_dialog = QFileDialog()
-        self.file_dialog.setNameFilter("Sound files (*.mp3 *.wav)")
+        self.filter = "Sound files (*.mp3 *.wav)"
 
         self.setLayout(self.layout)
 
     def on_file_select_button_pressed(self):
-        self.file_path_label.setText(self.file_dialog.getOpenFileName()[0])
+        self.file_path_label.setText(self.file_dialog.getOpenFileName(self, "Open File", "", self.filter)[0])
