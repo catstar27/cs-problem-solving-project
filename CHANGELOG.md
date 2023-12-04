@@ -13,9 +13,9 @@
 <u>December 1</u> - Created the model file of plotting_function.py to eventually implement to interact with the view classes
 
 <u>December 3</u> - Added a color palette
-```
-rgb(54, 48, 98) 
-rgb(67, 85, 133) 
-rgb(129, 143, 180)
-rgb(245, 232, 199)
-```
+
+`rgb(54, 48, 98)`
+`rgb(67, 85, 133)` 
+`rgb(129, 143, 180)`
+`rgb(245, 232, 199)`
+
