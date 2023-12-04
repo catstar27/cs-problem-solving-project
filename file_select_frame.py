@@ -2,6 +2,10 @@ from PyQt6.QtWidgets import *
 
 
 class FileSelectFrame(QFrame):
+    """
+    Contains a text edit for a path to the sound file, a browse button to open the file dialog,
+    and the file dialog itself. Intended to make it easy to integrate to the main GUI
+    """
     def __init__(self):
         super().__init__()
         self.layout = QHBoxLayout()
