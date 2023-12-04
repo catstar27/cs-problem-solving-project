@@ -1,0 +1,4 @@
+The following packages need to be pip installed:
+matplotlib (numpy is included in matplotlib)
+PyQt6
+
