@@ -1,4 +1,4 @@
 matplotlib
 numpy
 PyQt6
-
+pydub

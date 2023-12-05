@@ -4,6 +4,8 @@ from PyQt6.QtWidgets import *
 import graph_widget as gw
 import file_select_frame as fsf
 import file_load_frame as flf
+import atexit
+import os
 
 pi = 3.14159
 # making use of color palette from here: https://colorhunt.co/palette/363062435585818fb4f5e8c7
@@ -13,8 +15,14 @@ def filepath_changed():
     file_load_frame.filepath = file_select_frame.file_path_label.toPlainText()
 
 
+def exit_handler():
+    if os.path.exists("file.wav"):
+        os.remove("file.wav")
+
+
 if __name__ == "__main__":
     # app preparation
+    atexit.register(exit_handler)
     app = QApplication(sys.argv)
     app.setApplicationName("Sound Visualizer")
     app.setStyleSheet("QWidget { background-color: rgb(54, 48, 98); color: rgb(245, 232, 199); } ")
