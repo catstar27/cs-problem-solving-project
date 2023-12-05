@@ -20,11 +20,19 @@ class FileLoadFrame(QFrame):
         self.status_message = QLabel()
         self.layout.addWidget(self.status_message)
 
+        # file length message
+        self.length_message = QLabel("No file is loaded.")
+        self.layout.addWidget(self.length_message)
+
     def update_filepath(self, filepath):
         self.filepath = filepath
 
     def load_file(self):
         self.file = wav.WaveModel(self.filepath)
         load_file_data = self.file.load_file()
-        color = 'green' if load_file_data[1] else 'red'
+        if load_file_data[1]:
+            color = 'green'
+            self.length_message.setText(f"The audio duration is {self.file.duration} seconds")
+        else:
+            color = 'red'
         self.status_message.setText(f"<font color={color}>"+load_file_data[0]+f"<font color={color}>")
