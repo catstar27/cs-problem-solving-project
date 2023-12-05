@@ -16,8 +16,7 @@ class FileSelectFrame(QFrame):
         self.layout.addWidget(self.file_path_label)
 
         # Browse button setup
-        self.file_select_button = QPushButton()
-        self.file_select_button.setText("Browse...")
+        self.file_select_button = QPushButton("Browse...")
         self.file_select_button.clicked.connect(self.on_file_select_button_pressed)
         self.layout.addWidget(self.file_select_button)
 
