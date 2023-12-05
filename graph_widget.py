@@ -6,7 +6,7 @@ class GraphWidget(FigureCanvas):
     """
     Widget for use in the main GUI containing a graph with x and y specified by the constructor.
     """
-    def __init__(self, x, y):
+    def __init__(self):
         super().__init__(Figure())
         self.subplot = self.figure.subplots()
 
