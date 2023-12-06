@@ -5,6 +5,10 @@ accepted_filetypes = [".mp3", ".wav"]
 
 
 class WaveModel:
+    """
+    Creates and formats the file which will be referenced by all the graphs,
+    while handling errors relating to file loading.
+    """
     def __init__(self, filepath):
         self.filepath = filepath
         self.mono_wav_audio = ''
