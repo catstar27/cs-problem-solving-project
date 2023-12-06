@@ -11,11 +11,15 @@ pi = 3.14159
 # making use of color palette from here: https://colorhunt.co/palette/363062435585818fb4f5e8c7
 
 
-def filepath_changed():
+def update_file_duration():  # updates the label of audio duration after the file is loaded
+    length_message.setText(f"The audio duration is {file_load_frame.file.duration} seconds")
+
+
+def filepath_changed():  # updates file load frame filepath to the filepath in file select frame
     file_load_frame.filepath = file_select_frame.file_path_label.toPlainText()
 
 
-def exit_handler():
+def exit_handler():  # runs on exit, deleting the temporary wav file
     if os.path.exists("file.wav"):
         os.remove("file.wav")
 
@@ -50,7 +54,12 @@ if __name__ == "__main__":
     file_load_frame = flf.FileLoadFrame()
     file_load_frame.filepath = file_select_frame.file_path_label.toPlainText()
     file_select_frame.file_path_label.textChanged.connect(filepath_changed)
+    file_load_frame.load_signal.connect(update_file_duration)
     settings_layout.addWidget(file_load_frame)
+
+    # file length message
+    length_message = QLabel()
+    settings_layout.addWidget(length_message)
 
     # frames setup
     graph_frame = QFrame()
