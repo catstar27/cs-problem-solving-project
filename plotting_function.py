@@ -19,6 +19,8 @@ class RT60:
 
         data_in_db_fun = 10 * np.log10(data_for_frequency)
         return data_in_db_fun
+    def update_range(self, new_freqs):
+        self.freqs = new_freqs
 def find_nearest_value(array, value):
     array = np.asarray(array)
     idx = (np.abs(array - value)).argmin()
