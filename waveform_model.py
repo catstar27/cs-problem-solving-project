@@ -10,5 +10,3 @@ class WaveformModel(GraphWidget):
         self.subplot.clear()
         samplerate, data = wavfile.read("file.wav")
         self.new_plot_arr(data)
-        self.subplot.title.set_text("Waveform")
-        self.draw()

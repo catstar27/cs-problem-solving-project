@@ -7,14 +7,8 @@ class AlternateButtonsFrame(QFrame):
         self.layout = QHBoxLayout()
         self.setLayout(self.layout)
 
-        low_button = QPushButton("Low")
-        self.layout.addWidget(low_button)
+        self.prev_button = QPushButton("<< Prev")
+        self.layout.addWidget(self.prev_button)
 
-        mid_button = QPushButton("Mid")
-        self.layout.addWidget(mid_button)
-
-        high_button = QPushButton("High")
-        self.layout.addWidget(high_button)
-
-        all_button = QPushButton("All")
-        self.layout.addWidget(all_button)
+        self.next_button = QPushButton("Next >>")
+        self.layout.addWidget(self.next_button)
