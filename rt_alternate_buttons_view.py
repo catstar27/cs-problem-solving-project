@@ -3,6 +3,9 @@ from PyQt6.QtCore import *
 
 
 class AlternateButtonsFrame(QFrame):
+    """
+    Set of buttons for alternating reverb form graphs, for use in controller
+    """
     def __init__(self):
         super().__init__()
         self.layout = QHBoxLayout()

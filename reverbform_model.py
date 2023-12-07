@@ -10,28 +10,35 @@ FREQ_COLOR = {"Low": "b", "Mid": "c", "High": "m"}
 
 
 class ReverbFormModel(GraphWidget):
+    """
+    Calculates RT60 and makes a graph of the db
+    """
     rt60_changed = pyqtSignal(name="rt60_changed")
+    max_freq_changed = pyqtSignal(name="max_freq_changed")
 
     def __init__(self):
         super().__init__("Reverb")
         self.rt60 = 0
+        self.value_of_max = 0
+        self.im = 0
 
     def plot_waveform(self, ranges, add_graph=False):
         sample_rate, data = wavfile.read("file.wav")
-        spectrum, freqs, t, im = plt.specgram(data, Fs=sample_rate, NFFT=1024, cmap=plt.get_cmap('autumn_r'))
+        spectrum, freqs, t, self.im = plt.specgram(data, Fs=sample_rate, NFFT=1024, cmap=plt.get_cmap('autumn_r'))
 
-        reverb_creator = RT60(RANGE_DICT[ranges], spectrum, freqs, t, im)
+        reverb_creator = RT60(RANGE_DICT[ranges], spectrum, freqs, t, self.im)
 
         data_in_db = reverb_creator.frequency_check()
         index_of_max = np.argmax(data_in_db)
-        value_of_max = data_in_db[index_of_max]
+        prev_max = self.value_of_max
+        self.value_of_max = data_in_db[index_of_max]
         sliced_array = data_in_db[index_of_max:]
 
-        value_of_max_less_5 = value_of_max - 5
+        value_of_max_less_5 = self.value_of_max - 5
         value_of_max_less_5 = find_nearest_value(sliced_array, value_of_max_less_5)
         index_of_max_less_5 = np.where(data_in_db == value_of_max_less_5)
 
-        value_of_max_less_25 = value_of_max - 25
+        value_of_max_less_25 = self.value_of_max - 25
         value_of_max_less_25 = find_nearest_value(sliced_array, value_of_max_less_25)
         index_of_max_less_25 = np.where(data_in_db == value_of_max_less_25)
 
@@ -40,6 +47,8 @@ class ReverbFormModel(GraphWidget):
         self.rt60 = 3 * rt20
         if prev_rt60 != self.rt60:
             self.rt60_changed.emit()
+        if prev_max != self.value_of_max:
+            self.max_freq_changed.emit()
 
         if not add_graph:
             self.new_plot_xy(reverb_creator.time, data_in_db)

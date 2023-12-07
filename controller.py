@@ -1,9 +1,11 @@
 import sys
 from PyQt6.QtWidgets import *
+from PyQt6.QtCore import *
 import waveform_model as wm
 import file_select_frame as fsf
 import file_load_frame_view as flf
 import reverbform_model as rm
+import graph_model as gm
 import rt_alternate_buttons_view as rtab
 import atexit
 import os
@@ -26,11 +28,15 @@ def set_rt_graph(num):
 
 
 def update_rt_display():
-    rt_display.setText(f"RT60 Value: {round(abs(rt_graph.rt60), 2)}")
+    rt_display.setText(f"RT60 Value: {round(abs(rt_graph.rt60), 2)} seconds")
+
+
+def update_max_freq_display():
+    max_freq_display.setText(f"Max Frequency: {round(rt_graph.value_of_max, 2)} Hz")
 
 
 def file_loaded():  # updates the label of audio duration after the file is loaded
-    global current_graph_index, loaded
+    global current_graph_index, loaded, spectrogram
     length_message.setText(f"Audio Duration: {file_load_frame.file.duration} seconds")
     waveform.plot_waveform()
     rt_graph.plot_waveform(frequencies[current_graph_index])
@@ -65,7 +71,9 @@ if __name__ == "__main__":
     graph_layout.addWidget(waveform)
     rt_graph = rm.ReverbFormModel()
     rt_graph.rt60_changed.connect(update_rt_display)
+    rt_graph.max_freq_changed.connect(update_max_freq_display)
     graph_layout.addWidget(rt_graph)
+    spectrogram = gm.GraphWidget("Spectrogram")
 
     # graph alternate buttons setup
     rt_buttons = rtab.AlternateButtonsFrame()
@@ -76,17 +84,12 @@ if __name__ == "__main__":
 
     # file select setup
     file_select_label = QLabel("Select a sound file to analyze:")
+    file_select_label.setAlignment(Qt.AlignmentFlag.AlignBottom)
     file_select_label.setMaximumHeight(20)
     settings_layout.addWidget(file_select_label)
     file_select_frame = fsf.FileSelectFrame()
+    file_select_frame.setMaximumWidth(500)
     settings_layout.addWidget(file_select_frame)
-
-    # file load setup
-    file_load_frame = flf.FileLoadFrame()
-    file_load_frame.filepath = file_select_frame.file_path_label.toPlainText()
-    file_select_frame.file_path_label.textChanged.connect(filepath_changed)
-    file_load_frame.load_signal.connect(file_loaded)
-    settings_layout.addWidget(file_load_frame)
 
     # file length message
     length_message = QLabel("Audio Duration: ")
@@ -95,6 +98,17 @@ if __name__ == "__main__":
     # graph rt display setup
     rt_display = QLabel("RT60 Value: ")
     settings_layout.addWidget(rt_display)
+
+    # max freq display setup
+    max_freq_display = QLabel("Maximum Frequency: ")
+    settings_layout.addWidget(max_freq_display)
+
+    # file load setup
+    file_load_frame = flf.FileLoadFrame()
+    file_load_frame.filepath = file_select_frame.file_path_label.toPlainText()
+    file_select_frame.file_path_label.textChanged.connect(filepath_changed)
+    file_load_frame.load_signal.connect(file_loaded)
+    settings_layout.addWidget(file_load_frame)
 
     # frames setup
     graph_frame = QFrame()

@@ -3,6 +3,9 @@ from graph_model import GraphWidget
 
 
 class WaveformModel(GraphWidget):
+    """
+    Graphs the waveform of the wav
+    """
     def __init__(self):
         super().__init__("Waveform")
 

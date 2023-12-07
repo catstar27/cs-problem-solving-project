@@ -2,6 +2,9 @@ import numpy as np
 
 
 class RT60:
+    """
+    Makes various RT60 calculations
+    """
     def __init__(self, ranges, spectrum, freqs, time, im):
         self.ranges = ranges
         self.spectrum = spectrum
