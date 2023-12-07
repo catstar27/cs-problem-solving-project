@@ -2,9 +2,9 @@ import sys
 from PyQt6.QtWidgets import *
 import waveform_model as wm
 import file_select_frame as fsf
-import file_load_frame as flf
+import file_load_frame_view as flf
 import reverbform_model as rm
-import rt_alternate_buttons as rtab
+import rt_alternate_buttons_view as rtab
 import atexit
 import os
 

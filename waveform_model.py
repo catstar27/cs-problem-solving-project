@@ -1,5 +1,5 @@
 from scipy.io import wavfile
-from graph_widget import GraphWidget
+from graph_model import GraphWidget
 
 
 class WaveformModel(GraphWidget):

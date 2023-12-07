@@ -36,7 +36,7 @@ class GraphWidget(FigureCanvasQTAgg):
         self.subplot.title.set_text(self.title)
         self.draw()
 
-    def add_plot(self, x, y):
-        self.subplot.plot(x, y, "k")
+    def add_plot(self, x, y, color="k"):
+        self.subplot.plot(x, y, color)
         self.subplot.title.set_text(self.title)
         self.draw()

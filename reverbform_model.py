@@ -1,11 +1,12 @@
 from scipy.io import wavfile
 import matplotlib.pyplot as plt
-from graph_widget import GraphWidget
+from graph_model import GraphWidget
 import numpy as np
-from plotting_function import RT60, find_nearest_value
+from plotting_function_model import RT60, find_nearest_value
 from PyQt6.QtCore import *
 
 RANGE_DICT = {"Low": 250, "Mid": 1000, "High": 4000}
+FREQ_COLOR = {"Low": "b", "Mid": "c", "High": "m"}
 
 
 class ReverbFormModel(GraphWidget):
@@ -43,7 +44,7 @@ class ReverbFormModel(GraphWidget):
         if not add_graph:
             self.new_plot_xy(reverb_creator.time, data_in_db)
         else:
-            self.add_plot(reverb_creator.time, data_in_db)
+            self.add_plot(reverb_creator.time, data_in_db, FREQ_COLOR[ranges])
 
     def plot_all(self):
         self.subplot.cla()
