@@ -20,6 +20,7 @@ class FileLoadFrame(QFrame):
 
         # file load button
         self.file_load_button = QPushButton("Load File")
+        self.file_load_button.setMaximumSize(80, 30)
         self.file_load_button.clicked.connect(self.load_file)
         self.layout.addWidget(self.file_load_button)
 
