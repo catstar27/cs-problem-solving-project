@@ -3,18 +3,35 @@ from PyQt6.QtWidgets import *
 import waveform_model as wm
 import file_select_frame as fsf
 import file_load_frame as flf
-import graph_widget as gw
+import reverbform_model as rm
 import rt_alternate_buttons as rtab
 import atexit
 import os
 
 pi = 3.14159
+frequencies = ["Low", "Mid", "High", "All"]
 # making use of color palette from here: https://colorhunt.co/palette/363062435585818fb4f5e8c7
 
 
+def set_rt_graph(num):
+    global current_graph_index, loaded
+    if loaded:
+        current_graph_index += num
+        current_graph_index %= 4
+        if frequencies[current_graph_index] != "All":
+            rt_graph.plot_waveform(frequencies[current_graph_index])
+        else:
+            rt_graph.plot_all()
+        rt_buttons.update_graph_label(frequencies[current_graph_index])
+
+
 def file_loaded():  # updates the label of audio duration after the file is loaded
+    global current_graph_index, loaded
     length_message.setText(f"The audio duration is {file_load_frame.file.duration} seconds")
     waveform.plot_waveform()
+    rt_graph.plot_waveform(frequencies[current_graph_index])
+    rt_buttons.update_graph_label(frequencies[current_graph_index])
+    loaded = True
 
 
 def filepath_changed():  # updates file load frame filepath to the filepath in file select frame
@@ -28,6 +45,7 @@ def exit_handler():  # runs on exit, deleting the temporary wav file
 
 if __name__ == "__main__":
     # app preparation
+    loaded = False
     atexit.register(exit_handler)
     app = QApplication(sys.argv)
     app.setApplicationName("Sound Visualizer")
@@ -41,12 +59,15 @@ if __name__ == "__main__":
     # graphs setup
     waveform = wm.WaveformModel()
     graph_layout.addWidget(waveform)
-    rt_graph = gw.GraphWidget("Reverb")
+    rt_graph = rm.ReverbFormModel()
     graph_layout.addWidget(rt_graph)
 
     # graph alternate buttons setup
     rt_buttons = rtab.AlternateButtonsFrame()
+    rt_buttons.next_button.clicked.connect(lambda: set_rt_graph(1))
+    rt_buttons.prev_button.clicked.connect(lambda: set_rt_graph(-1))
     graph_layout.addWidget(rt_buttons)
+    current_graph_index = 0
 
     # file select setup
     file_select_label = QLabel("Select a sound file to analyze:")
@@ -76,5 +97,4 @@ if __name__ == "__main__":
 
     # execution
     window.show()
-    print(window.size())
     app.exec()

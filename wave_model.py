@@ -17,7 +17,7 @@ class WaveModel:
     def load_file(self):
         try:
             open(self.filepath, 'r')
-            if self.filepath[-4::] not in accepted_filetypes:
+            if self.filepath[-4::].lower() not in accepted_filetypes:
                 return "Unsupported File Type", False
             if not self.validate():
                 return "FFMPEG Not Installed Correctly", False
@@ -29,8 +29,8 @@ class WaveModel:
 
     def validate(self):
         try:
-            mono_wav = AudioSegment.from_mp3(self.filepath) if self.filepath[-4::] != ".wav" else AudioSegment.from_file(self.filepath)
-            mono_wav.set_channels(1)
+            raw_audio = AudioSegment.from_mp3(self.filepath) if self.filepath[-4::].lower() != ".wav" else AudioSegment.from_file(self.filepath)
+            mono_wav = raw_audio.set_channels(1)
             mono_wav.export("file.wav", format="wav")
             self.mono_wav_audio = AudioSegment.from_file("file.wav")
             self.duration = round(float(mediainfo("file.wav")["duration"]), 2)

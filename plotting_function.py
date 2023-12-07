@@ -16,11 +16,11 @@ class RT60:
         return x
 
     def frequency_check(self):
-        target_frequency = self.freqs.range_finder(self.ranges)
+        target_frequency = self.range_finder()
         index_of_frequency = np.where(self.freqs == target_frequency)[0][0]
         data_for_frequency = self.spectrum[index_of_frequency]
 
-        data_in_db_fun = 10 * np.log10(data_for_frequency)
+        data_in_db_fun = 10 * np.log10(data_for_frequency+1.0e-8)
         return data_in_db_fun
 
     def update_range(self, new_freqs):
