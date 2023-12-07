@@ -3,13 +3,17 @@ import matplotlib.pyplot as plt
 from graph_widget import GraphWidget
 import numpy as np
 from plotting_function import RT60, find_nearest_value
+from PyQt6.QtCore import *
 
 RANGE_DICT = {"Low": 250, "Mid": 1000, "High": 4000}
 
 
 class ReverbFormModel(GraphWidget):
+    rt60_changed = pyqtSignal(name="rt60_changed")
+
     def __init__(self):
         super().__init__("Reverb")
+        self.rt60 = 0
 
     def plot_waveform(self, ranges, add_graph=False):
         sample_rate, data = wavfile.read("file.wav")
@@ -31,7 +35,10 @@ class ReverbFormModel(GraphWidget):
         index_of_max_less_25 = np.where(data_in_db == value_of_max_less_25)
 
         rt20 = (reverb_creator.time[index_of_max_less_5] - reverb_creator.time[index_of_max_less_25])[0]
-        rt60 = 3 * rt20
+        prev_rt60 = self.rt60
+        self.rt60 = 3 * rt20
+        if prev_rt60 != self.rt60:
+            self.rt60_changed.emit()
 
         if not add_graph:
             self.new_plot_xy(reverb_creator.time, data_in_db)

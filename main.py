@@ -25,9 +25,13 @@ def set_rt_graph(num):
         rt_buttons.update_graph_label(frequencies[current_graph_index])
 
 
+def update_rt_display():
+    rt_display.setText(f"RT60 Value: {round(abs(rt_graph.rt60), 2)}")
+
+
 def file_loaded():  # updates the label of audio duration after the file is loaded
     global current_graph_index, loaded
-    length_message.setText(f"The audio duration is {file_load_frame.file.duration} seconds")
+    length_message.setText(f"Audio Duration: {file_load_frame.file.duration} seconds")
     waveform.plot_waveform()
     rt_graph.plot_waveform(frequencies[current_graph_index])
     rt_buttons.update_graph_label(frequencies[current_graph_index])
@@ -60,6 +64,7 @@ if __name__ == "__main__":
     waveform = wm.WaveformModel()
     graph_layout.addWidget(waveform)
     rt_graph = rm.ReverbFormModel()
+    rt_graph.rt60_changed.connect(update_rt_display)
     graph_layout.addWidget(rt_graph)
 
     # graph alternate buttons setup
@@ -84,8 +89,12 @@ if __name__ == "__main__":
     settings_layout.addWidget(file_load_frame)
 
     # file length message
-    length_message = QLabel()
+    length_message = QLabel("Audio Duration: ")
     settings_layout.addWidget(length_message)
+
+    # graph rt display setup
+    rt_display = QLabel("RT60 Value: ")
+    settings_layout.addWidget(rt_display)
 
     # frames setup
     graph_frame = QFrame()
