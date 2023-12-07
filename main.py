@@ -1,10 +1,10 @@
 import sys
-import numpy as np
-import graph_widget as gw
 from PyQt6.QtWidgets import *
 import waveform_model as wm
 import file_select_frame as fsf
 import file_load_frame as flf
+import graph_widget as gw
+import rt_alternate_buttons as rtab
 import atexit
 import os
 
@@ -38,8 +38,15 @@ if __name__ == "__main__":
     settings_layout = QVBoxLayout()
     graph_layout = QVBoxLayout()
 
+    # graphs setup
     waveform = wm.WaveformModel()
     graph_layout.addWidget(waveform)
+    rt_graph = gw.GraphWidget("Reverb")
+    graph_layout.addWidget(rt_graph)
+
+    # graph alternate buttons setup
+    rt_buttons = rtab.AlternateButtonsFrame()
+    graph_layout.addWidget(rt_buttons)
 
     # file select setup
     file_select_label = QLabel("Select a sound file to analyze:")
