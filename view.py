@@ -10,6 +10,9 @@ import rt_alternate_buttons_view as rtab
 
 
 class View(QApplication):
+    """
+    Loads and contains the GUI of the program
+    """
     def __init__(self):
         super().__init__(sys.argv)
         self.setApplicationName("Sound Visualizer")

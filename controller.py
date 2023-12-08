@@ -7,7 +7,7 @@ frequencies = ["Low", "Mid", "High", "All"]
 # making use of color palette from here: https://colorhunt.co/palette/363062435585818fb4f5e8c7
 
 
-def set_rt_graph(num):
+def set_rt_graph(num):  # Iterates through the rt graph options, and updates the graphs and rt60 values
     if app.is_file_loaded:
         app.current_rt_graph_index += num
         app.current_rt_graph_index %= 4
@@ -19,7 +19,7 @@ def set_rt_graph(num):
 
 
 def update_rt_display():
-    app.rt_display.setText(f"RT60 Value: {round(abs(app.rt_graph.rt60), 2)} seconds")
+    app.rt_display.setText(f"RT60 Value: {round(abs(app.rt_graph.rt60), 2)} seconds ({round(abs(app.rt_graph.rt60)-.5, 2)}+.5)")
 
 
 def update_max_freq_display():

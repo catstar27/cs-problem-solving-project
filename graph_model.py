@@ -4,7 +4,7 @@ from matplotlib.figure import Figure
 
 class GraphWidget(FigureCanvasQTAgg):
     """
-    Widget for use in the main GUI containing a graph with x and y specified by the constructor.
+    Widget for use by other graphing widgets containing helpful functions for graphing in the Qt GUI.
     """
     def __init__(self, title):
         super().__init__(Figure())
