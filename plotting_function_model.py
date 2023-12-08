@@ -22,7 +22,6 @@ class RT60:
         target_frequency = self.range_finder()
         index_of_frequency = np.where(self.freqs == target_frequency)[0][0]
         data_for_frequency = self.spectrum[index_of_frequency]
-
         data_in_db_fun = 10 * np.log10(data_for_frequency+1.0e-8)
         return data_in_db_fun
 
