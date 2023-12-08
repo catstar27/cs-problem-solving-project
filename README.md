@@ -16,8 +16,9 @@ a room best suited to the frequency guitars typically play at (150 to 500Hz)
 
 ## Instructions
 When the user runs the main controller, the first step would be to 
-select the audio file they wish to process. When that file is selected, an RT60 plot will be generated.
+select the audio file they wish to process. When that file is selected and the button to load the file is pressed,
+an RT60 plot will be generated. There are buttons to alternate between low, mid, high, and all in one.
+The relevant RT60 value is displayed along with the frequency and audio duration, based on the current graph.
+Additionally, the waveform and spectrogram of the loaded file will be displayed.
 
-There will then be options to combine the low, mid, high frequencies into a single plot,
-display the difference when the RT60 is reduced to 0.5 seconds, and 
-further data plots related to the RT60 value.
+There will then be options to display the difference when the RT60 is reduced to 0.5 seconds.

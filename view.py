@@ -2,9 +2,10 @@ import sys
 from PyQt6.QtWidgets import *
 from PyQt6.QtCore import *
 import waveform_model as wm
+import spectrogram_model as sm
+import reverbform_model as rm
 import file_select_frame as fsf
 import file_load_frame_view as flf
-import reverbform_model as rm
 import rt_alternate_buttons_view as rtab
 
 
@@ -26,6 +27,8 @@ class View(QApplication):
         # graphs setup
         self.waveform = wm.WaveformModel()
         self.graph_layout.addWidget(self.waveform)
+        self.spectrogram = sm.SpectrogramModel()
+        self.graph_layout.addWidget(self.spectrogram)
         self.rt_graph = rm.ReverbFormModel()
         self.graph_layout.addWidget(self.rt_graph)
 

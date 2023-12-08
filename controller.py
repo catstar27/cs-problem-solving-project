@@ -31,6 +31,7 @@ def file_loaded():  # updates the label of audio duration after the file is load
     app.waveform.plot_waveform()
     app.rt_graph.plot_waveform(frequencies[app.current_rt_graph_index])
     app.rt_buttons.update_graph_label(frequencies[app.current_rt_graph_index])
+    app.spectrogram.plot_spectrogram()
     app.is_file_loaded = True
 
 
