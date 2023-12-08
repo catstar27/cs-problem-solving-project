@@ -1,6 +1,0 @@
-matplotlib
-numpy
-PyQt6
-pydub
-ffmpeg
-scipy
