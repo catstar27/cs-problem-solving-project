@@ -18,12 +18,19 @@ def set_rt_graph(num):  # Iterates through the rt graph options, and updates the
         app.rt_buttons.update_graph_label(frequencies[app.current_rt_graph_index])
 
 
+def toggle_spectrogram():
+    if app.spectrogram_display_button.isChecked():
+        app.spectrogram.show()
+    else:
+        app.spectrogram.hide()
+
+
 def update_rt_display():
     app.rt_display.setText(f"RT60 Value: {round(abs(app.rt_graph.rt60), 2)} seconds ({round(abs(app.rt_graph.rt60)-.5, 2)}+.5)")
 
 
 def update_max_freq_display():
-    app.max_freq_display.setText(f"Max Frequency: {round(app.rt_graph.value_of_max, 2)} Hz")
+    app.max_freq_display.setText(f"Max Frequency: {round(app.rt_graph.max_freq, 2)} Hz")
 
 
 def file_loaded():  # updates the label of audio duration after the file is loaded
@@ -56,6 +63,7 @@ if __name__ == "__main__":
     app.rt_buttons.prev_button.clicked.connect(lambda: set_rt_graph(-1))
     app.file_select_frame.file_path_label.textChanged.connect(filepath_changed)
     app.file_load_frame.load_signal.connect(file_loaded)
+    app.spectrogram_display_button.clicked.connect(toggle_spectrogram)
 
     app.window.show()
     app.exec()

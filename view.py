@@ -28,10 +28,11 @@ class View(QApplication):
         self.graph_layout = QVBoxLayout()
 
         # graphs setup
+        self.spectrogram = sm.SpectrogramModel()
+        self.spectrogram.setMinimumSize(640, 200)
+        self.graph_layout.addWidget(self.spectrogram)
         self.waveform = wm.WaveformModel()
         self.graph_layout.addWidget(self.waveform)
-        self.spectrogram = sm.SpectrogramModel()
-        self.graph_layout.addWidget(self.spectrogram)
         self.rt_graph = rm.ReverbFormModel()
         self.graph_layout.addWidget(self.rt_graph)
 
@@ -59,6 +60,11 @@ class View(QApplication):
         # max freq display setup
         self.max_freq_display = QLabel("Maximum Frequency: ")
         self.settings_layout.addWidget(self.max_freq_display)
+
+        # spectrogram show/hide button
+        self.spectrogram_display_button = QCheckBox("Enable Spectrogram")
+        self.spectrogram_display_button.setChecked(True)
+        self.settings_layout.addWidget(self.spectrogram_display_button)
 
         # file load setup
         self.file_load_frame = flf.FileLoadFrame()
