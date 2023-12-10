@@ -29,3 +29,8 @@
 + Created the wave_model.py file to read the audio file. 
 + Updated the plotting_function to process arrays for thoroughly
 
+<u>December 6</u> -
++ Updated many aspects of the project and finished rt60 calculations
+
+<u>December 7</u> -
++ Added Spectrogram plot and finalized the project
